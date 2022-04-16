@@ -6,21 +6,23 @@ class App extends Component {
   constructor() {
     super() //super calls the underline constructor method in Component
     this.state = {
-      monsters: [
-        {
-          name: 'lynda',
-          id: '12e12313',
-        },
-        {
-          name: 'Frank',
-          id: '12ed2dacas',
-        },
-        {
-          name: 'Jacky',
-          id: '12e1e213',
-        },
-      ],
+      monsters: [],
     } //instantiate the state its always a json object
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users') //returning a promise
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(
+          () => {
+            return { monsters: users }
+          },
+          () => {
+            console.log(this.state)
+          }
+        )
+      )
   }
 
   render() {
